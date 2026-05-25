@@ -27,18 +27,18 @@ jobs:
           ACCESS_KEY: ${{ secrets.TEACON_ARCHIVE_ACCESS_KEY }}
           SECRET_KEY: ${{ secrets.TEACON_ARCHIVE_SECRET_KEY }}
         run: ./aliyun configure set --profile main --region $REGION --mode AK --access-key-id $ACCESS_KEY --access-key-secret $SECRET_KEY
-      - name: Create Resource / Data Pack Archive
-        run: |
-          cd 2026
-          rm .gitignore README.md
-          zip -qrm TeaCon-2026-Resource.zip assets
-          zip -qu TeaCon-2026-Resource.zip pack.mcmeta pack.png
-          zip -qrm TeaCon-2026-Data.zip data
-          zip -qu TeaCon-2026-Data.zip pack.mcmeta pack.png
-          mkdir resourcepacks
-          mv TeaCon-2026-Resource.zip resourcepacks/
-          mkdir -p world/datapacks
-          mv TeaCon-2026-Data.zip world/datapacks/
+      # - name: Create Resource / Data Pack Archive
+      #   run: |
+      #     cd 2026
+      #     rm .gitignore README.md
+      #     zip -qrm TeaCon-2026-Resource.zip assets
+      #     zip -qu TeaCon-2026-Resource.zip pack.mcmeta pack.png
+      #     zip -qrm TeaCon-2026-Data.zip data
+      #     zip -qu TeaCon-2026-Data.zip pack.mcmeta pack.png
+      #     mkdir resourcepacks
+      #     mv TeaCon-2026-Resource.zip resourcepacks/
+      #     mkdir -p world/datapacks
+      #     mv TeaCon-2026-Data.zip world/datapacks/
       - name: Sync For Test
         id: sync-test
         if: ${{ startsWith(github.ref, 'refs/heads') }}
