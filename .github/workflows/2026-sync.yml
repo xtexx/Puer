@@ -1,0 +1,58 @@
+name: TeaCon 甲辰 Sync Pack-building Files
+
+on:
+  push:
+    paths:
+      - "2026/**"
+    branches: [ dev ]
+    tags: '**'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    # https://github.com/actions/runner-images/issues/10636
+    # Aliyun CLI is removed from ubuntu-24.04 image among with a lot of several other CLI tools (Netlify, Vercel, etc)
+    # Roll back to 22.04 for Jiachen. 
+    # In the future, we need to make sure Aliyun CLI is installed before anything. 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Aliyun CLI
+        run: |
+          curl https://aliyuncli.alicdn.com/aliyun-cli-linux-latest-amd64.tgz -o aliyun-cli-linux-latest.tgz
+          tar xzvf aliyun-cli-linux-latest.tgz
+      - name: Setup profile
+        env:
+          REGION: ${{ secrets.REGION }}
+          ACCESS_KEY: ${{ secrets.TEACON_ARCHIVE_ACCESS_KEY }}
+          SECRET_KEY: ${{ secrets.TEACON_ARCHIVE_SECRET_KEY }}
+        run: ./aliyun configure set --profile main --region $REGION --mode AK --access-key-id $ACCESS_KEY --access-key-secret $SECRET_KEY
+      - name: Create Resource / Data Pack Archive
+        run: |
+          cd 2026
+          rm .gitignore README.md
+          zip -qrm TeaCon-2026-Resource.zip assets
+          zip -qu TeaCon-2026-Resource.zip pack.mcmeta pack.png
+          zip -qrm TeaCon-2026-Data.zip data
+          zip -qu TeaCon-2026-Data.zip pack.mcmeta pack.png
+          mkdir resourcepacks
+          mv TeaCon-2026-Resource.zip resourcepacks/
+          mkdir -p world/datapacks
+          mv TeaCon-2026-Data.zip world/datapacks/
+      - name: Sync For Test
+        id: sync-test
+        if: ${{ startsWith(github.ref, 'refs/heads') }}
+        env:
+          BUCKET: ${{ secrets.BUCKET }}
+          # https://github.com/aliyun/aliyun-cli?tab=readme-ov-file#supported-environment-variables
+          # We pass in the profile via env var.
+          # Apparently `aliyun oss' won't accept --profile args as it used to be.
+          ALIBABA_CLOUD_PROFILE: main
+        run: ./aliyun oss sync --delete --force --meta=Cache-Control:no-cache --backup-dir backup ./2026/ oss://$BUCKET/2026/puer/test/
+      - name: Sync For Prod
+        id: sync-prod
+        if: ${{ startsWith(github.ref, 'refs/tags') }}
+        env:
+          BUCKET: ${{ secrets.BUCKET }}
+          ALIBABA_CLOUD_PROFILE: main
+        run: ./aliyun oss sync --delete --force --meta=Cache-Control:no-cache --backup-dir backup ./2026/ oss://$BUCKET/2026/puer/prod/
