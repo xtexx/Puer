@@ -2,7 +2,6 @@ forceUnicodeFont:true
 gamma:1.0
 renderClouds:"false"
 renderDistance:14
-resourcePacks:["file/TeaCon-2026-Resource.zip"]
 lang:zh_cn
 skipMultiplayerWarning:true
 syncChunkWrites:true
