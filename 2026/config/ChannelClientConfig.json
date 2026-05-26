@@ -12,7 +12,7 @@
   "highPassFilter": true,
   "echoCanceling": false,
   "autoGainControl": true,
-  "forceGainControl": 0.0,
+  "forceGainControl": 10.0,
   "targetLevel": -5.0,
   "maxGain": 20.0,
   "nvidiaDllPath": "",
