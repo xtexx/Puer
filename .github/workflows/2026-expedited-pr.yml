@@ -24,6 +24,6 @@ jobs:
           CONSENT_PATTERN: '- [X] **版权声明：我同意在我的 Pull Request 合并成功后，Pull Request 中的内容视作进入公有领域（Public Domain）。**'
         run: |
           if [[ $(gh pr view $PR_URL --json body --jq '.body') == *"$CONSENT_PATTERN"* ]]; then
-            echo '::info::检测到已同意声明，快速合并'
+            echo '::notice::检测到已同意声明，快速合并'
             gh pr merge $PR_URL --merge
           fi
