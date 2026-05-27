@@ -66,8 +66,8 @@ jobs:
           lines = [
               "# Title",
               "[sync.title]",
-              "hash = 1bb1032c369e5f1c982a203b5c8de7032027b12eace903cec5c99e0e36f95d42",
-              "file = data:application/toml;base64,dGl0bGUgPSAiVGVhQ29uIDIwMjYgVGVzdCBDbGllbnQgLSBNaW5lY3JhZnQgMjYuMS4yIgoKW2xhbmcuZW5fdXNdCnRpdGxlID0gIlRlYUNvbiAyMDI2IFRlc3QgQ2xpZW50IC0gTWluZWNyYWZ0IDI2LjEuMiIKCltsYW5nLnpoX2NuXQp0aXRsZSA9ICJUZWFDb24gMjAyNiDmtYvor5XlrqLmiLfnq68gLSBNaW5lY3JhZnQgMjYuMS4yIgo=",
+              'hash = "1bb1032c369e5f1c982a203b5c8de7032027b12eace903cec5c99e0e36f95d42"',
+              'file = "data:application/toml;base64,dGl0bGUgPSAiVGVhQ29uIDIwMjYgVGVzdCBDbGllbnQgLSBNaW5lY3JhZnQgMjYuMS4yIgoKW2xhbmcuZW5fdXNdCnRpdGxlID0gIlRlYUNvbiAyMDI2IFRlc3QgQ2xpZW50IC0gTWluZWNyYWZ0IDI2LjEuMiIKCltsYW5nLnpoX2NuXQp0aXRsZSA9ICJUZWFDb24gMjAyNiDmtYvor5XlrqLmiLfnq68gLSBNaW5lY3JhZnQgMjYuMS4yIgo="',
               "",
               "# Options",
               "[sync.options]",
