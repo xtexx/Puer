@@ -77,7 +77,7 @@ jobs:
               "# Resource pack",
               "[sync.assets]",
               f'hash = "{digest(root / files["assets"])}"',
-              f'file = "files["assets"]}"',
+              f'file = "{files["assets"]}"',
               "",
               "# Datapack",
               "[sync.data]",
