@@ -35,7 +35,6 @@ jobs:
           ALIBABA_CLOUD_PROFILE: main
         run: |
           ./aliyun oss sync --delete --force --meta=Cache-Control:no-cache --backup-dir backup ./2026/ oss://$BUCKET/2026/puer/test/
-          ./aliyun oss sync --delete --force --meta=Cache-Control:no-cache --backup-dir backup ./toad/ oss://$BUCKET/2026/toad/test/
       - name: Sync For Prod
         id: sync-prod
         if: ${{ startsWith(github.ref, 'refs/tags') }}
@@ -70,6 +69,7 @@ jobs:
           from pathlib import Path
 
           root = Path("toad")
+          source = Path("2026/config/toad-sync-common.toml")
           files = {
               "options": "options.override.txt",
               "assets": "assets.override.zip",
@@ -79,10 +79,8 @@ jobs:
           def digest(path: Path) -> str:
               return sha256(path.read_bytes()).hexdigest()
 
-          lines = [
-              "interval = 7.5",
-              'remote = "https://archive.teacon.cn/2026/toad/test/toad-sync-common.toml"',
-              "",
+          prefix = source.read_text(encoding="utf-8") if source.exists() else ""
+          generated = "\n".join([
               "# Title",
               "[sync.title]",
               'hash = "1bb1032c369e5f1c982a203b5c8de7032027b12eace903cec5c99e0e36f95d42"',
@@ -104,9 +102,14 @@ jobs:
               f'file = "{files["data"]}"',
               "",
               "",
-          ]
+          ])
+          if prefix and not prefix.endswith("\n"):
+              prefix += "\n"
+          if prefix:
+              generated = prefix + "\n" + generated
 
-          (root / "toad-sync-common.toml").write_text("\n".join(lines), encoding="utf-8")
+          (root / "toad-sync-common.toml").write_text(generated, encoding="utf-8")
           PY
 
           rm -f toad/teacon-manifest.test.toml
+          ./aliyun oss sync --delete --force --meta=Cache-Control:no-cache --backup-dir backup ./toad/ oss://$BUCKET/2026/toad/test/
