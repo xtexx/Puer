@@ -27,7 +27,23 @@ jobs:
           ACCESS_KEY: ${{ secrets.TEACON_ARCHIVE_ACCESS_KEY }}
           SECRET_KEY: ${{ secrets.TEACON_ARCHIVE_SECRET_KEY }}
         run: ./aliyun configure set --profile main --region $REGION --mode AK --access-key-id $ACCESS_KEY --access-key-secret $SECRET_KEY
-      - name: Generate Toad Artifacts For Test
+      - name: Sync For Test
+        id: sync-test
+        if: ${{ startsWith(github.ref, 'refs/heads') }}
+        env:
+          BUCKET: ${{ secrets.BUCKET }}
+          ALIBABA_CLOUD_PROFILE: main
+        run: |
+          ./aliyun oss sync --delete --force --meta=Cache-Control:no-cache --backup-dir backup ./2026/ oss://$BUCKET/2026/puer/test/
+          ./aliyun oss sync --delete --force --meta=Cache-Control:no-cache --backup-dir backup ./toad/ oss://$BUCKET/2026/toad/test/
+      - name: Sync For Prod
+        id: sync-prod
+        if: ${{ startsWith(github.ref, 'refs/tags') }}
+        env:
+          BUCKET: ${{ secrets.BUCKET }}
+          ALIBABA_CLOUD_PROFILE: main
+        run: ./aliyun oss sync --delete --force --meta=Cache-Control:no-cache --backup-dir backup ./2026/ oss://$BUCKET/2026/puer/prod/
+      - name: Generate & Sync Toad Artifacts For Test
         if: ${{ startsWith(github.ref, 'refs/heads') }}
         env:
           BUCKET: ${{ secrets.BUCKET }}
@@ -64,6 +80,9 @@ jobs:
               return sha256(path.read_bytes()).hexdigest()
 
           lines = [
+              "interval = 7.5",
+              'remote = "https://archive.teacon.cn/2026/toad/test/toad-sync-common.toml"',
+              "",
               "# Title",
               "[sync.title]",
               'hash = "1bb1032c369e5f1c982a203b5c8de7032027b12eace903cec5c99e0e36f95d42"',
@@ -91,19 +110,3 @@ jobs:
           PY
 
           rm -f toad/teacon-manifest.test.toml
-      - name: Sync For Test
-        id: sync-test
-        if: ${{ startsWith(github.ref, 'refs/heads') }}
-        env:
-          BUCKET: ${{ secrets.BUCKET }}
-          ALIBABA_CLOUD_PROFILE: main
-        run: |
-          ./aliyun oss sync --delete --force --meta=Cache-Control:no-cache --backup-dir backup ./2026/ oss://$BUCKET/2026/puer/test/
-          ./aliyun oss sync --delete --force --meta=Cache-Control:no-cache --backup-dir backup ./toad/ oss://$BUCKET/2026/toad/test/
-      - name: Sync For Prod
-        id: sync-prod
-        if: ${{ startsWith(github.ref, 'refs/tags') }}
-        env:
-          BUCKET: ${{ secrets.BUCKET }}
-          ALIBABA_CLOUD_PROFILE: main
-        run: ./aliyun oss sync --delete --force --meta=Cache-Control:no-cache --backup-dir backup ./2026/ oss://$BUCKET/2026/puer/prod/
