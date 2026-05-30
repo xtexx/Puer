@@ -1,0 +1,24 @@
+_version = 4
+enableDistantGeneration = true
+
+[server]
+  [common.logging]
+    [common.logging.warning]
+			showSlowWorldGenSettingWarnings = false
+			showUpdateQueueOverloadedChatWarning = false
+			showLowMemoryWarningOnStartup = true
+			showReplayWarningOnStartup = true
+			showModCompatibilityWarningsOnStartup = true
+			showHighVanillaRenderDistanceWarning = false
+			showPoolInsufficientMemoryWarning = true
+			logGarbageCollectorWarning = true
+			showGarbageCollectorWarning = false
+
+[client]
+	showDhOptionsButtonInMinecraftUi = true
+
+		[client.advanced.autoUpdater]
+			enableAutoUpdater = false
+
+		[client.advanced.multiplayer]
+			serverFolderNameMode = "NAME_ONLY"
