@@ -13,7 +13,7 @@ veinMinerExtraDurability = true
 #连锁挖矿模式: BLACKLIST(黑名单), WHITELIST(白名单), DISABLED(禁用) (默认: DISABLED) / Vein mining mode: BLACKLIST, WHITELIST, DISABLED (default: DISABLED)
 veinMinerMode = "WHITELIST"
 #白名单方块列表，多个用逗号分隔 (例如: minecraft:stone,minecraft:iron_ore)，仅在模式为WHITELIST时生效 / Whitelist of blocks, comma-separated (e.g., minecraft:stone,minecraft:iron_ore). Only effective when mode is WHITELIST.
-veinMinerWhitelist = "minecraft:coal_ore,minecraft:stone"
+veinMinerWhitelist = "minecraft:ancient_debris"
 #黑名单方块列表，多个用逗号分隔 (例如: minecraft:bedrock,minecraft:obsidian)，仅在模式为BLACKLIST时生效 / Blacklist of blocks, comma-separated (e.g., minecraft:bedrock,minecraft:obsidian). Only effective when mode is BLACKLIST.
 veinMinerBlacklist = ""
 #连锁挖矿触发方式: KEYBIND(自定义键位,默认V键), SNEAK(潜行时触发), ALWAYS(直接触发) (默认: KEYBIND) / Vein mining trigger: KEYBIND(custom key,default V), SNEAK(hold shift), ALWAYS(always active) (default: KEYBIND)
