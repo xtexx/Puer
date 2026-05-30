@@ -4,9 +4,13 @@ permissions:
   pull-requests: write
 on:
   pull_request_target:
+    branches:
+      - dev
     types:
       - opened
+      - edited
     paths:
+      - '!**'
       - 2026/config/**
       - 2026/serverconfig/**
       - 2026/data/**
