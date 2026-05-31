@@ -1,0 +1,5 @@
+name = "builder"
+
+[[permissions]]
+permission = "command.superlead"
+value = true
