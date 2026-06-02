@@ -6,6 +6,46 @@
 	#This allows commands that can spawn test targets or generate test items.
 	#Keep this disabled for normal gameplay and public builds.
 	enableTestCommands = true
+	#If true, processor exceptions are rethrown and can crash the damage event.
+	#Use true during development.
+	#If false, failing processors are logged and skipped.
+	strictProcessorErrors = false
+	#If true, rule condition/operation exceptions are rethrown.
+	#Use true during development.
+	#If false, failing rule conditions/operations are logged and skipped.
+	strictRuleErrors = false
+	#Forward DamageNexus debug log lines to clients as system chat messages.
+	#Requires debugMode=true.
+	#OFF: disabled.
+	#INVOLVED_PLAYERS: only attacker/victim players involved in the damage event.
+	#OPS: online players with permission level 2+.
+	#ALL_PLAYERS: every online player. Use only on private debug servers.
+	#Default: OFF
+	#Allowed Values: OFF, INVOLVED_PLAYERS, OPS, ALL_PLAYERS
+	clientDebugLogForwardMode = "OPS"
+	#Maximum DamageNexus debug lines forwarded to clients per server tick.
+	#Prevents chat/network spam when debugMode is enabled.
+	#Default: 20
+	# Default: 20
+	# Range: 1 ~ 200
+	clientDebugLogForwardMaxLinesPerTick = 200
+	#Enable post-damage transaction diagnostics without enabling all debug logs.
+	#This records and checks final health / absorption deltas after LivingDamageEvent.Post.
+	#debugMode=true also enables these diagnostics.
+	#Default: false
+	enablePostDamageDiagnostics = false
+	#Controls which DamageNexus debug lines may be forwarded to clients.
+	#WARNINGS_ONLY: only suspicious/warning lines.
+	#SUMMARY: warnings plus transaction summaries and compatibility diagnostics.
+	#FULL: all trace lines, including processor/rule/phase spam. Use only on private dev servers.
+	#Default: WARNINGS_ONLY
+	#Allowed Values: WARNINGS_ONLY, SUMMARY, FULL
+	clientDebugLogForwardVerbosity = "SUMMARY"
+	#If true, players must opt in before receiving forwarded DamageNexus debug chat.
+	#Recommended true for public test servers.
+	#This prevents debug forwarding from spamming uninvolved players.
+	#Default: true
+	clientDebugLogForwardRequireReceiverOptIn = true
 
 [combat_formulas]
 	#The K-Value for the asymptotic armor formula. Formula: Reduction = effectiveArmor / (effectiveArmor + K).
@@ -25,3 +65,24 @@
 	# Default: 3.5
 	# Range: 0.0 ~ 100.0
 	ratingPerProtScore = 3.5
+
+[vanilla_compatibility]
+	#Controls how DamageNexus interacts with vanilla reduction modifiers.
+	#FULL_REPLACEMENT: suppress all vanilla reduction modifiers after DN mitigation. Recommended default.
+	#CONFIGURABLE: use the four per-reduction booleans below.
+	#COOPERATIVE: suppress no vanilla reduction modifiers. May cause double mitigation.
+	#Default: FULL_REPLACEMENT
+	#Allowed Values: FULL_REPLACEMENT, CONFIGURABLE, COOPERATIVE
+	vanillaReductionCompatibilityMode = "FULL_REPLACEMENT"
+	#If true, DamageNexus suppresses vanilla ARMOR reduction after calculating DN mitigation.
+	#Default: true. Disable only for compatibility experiments.
+	suppressVanillaArmorReduction = true
+	#If true, DamageNexus suppresses vanilla ENCHANTMENTS reduction after calculating DN mitigation.
+	#Default: true. Disable only for compatibility experiments.
+	suppressVanillaEnchantmentReduction = true
+	#If true, DamageNexus suppresses vanilla MOB_EFFECTS reduction after calculating DN mitigation.
+	#Default: true. Disable only for compatibility experiments.
+	suppressVanillaMobEffectReduction = true
+	#If true, DamageNexus suppresses vanilla INNATE_RESISTANCE reduction after calculating DN mitigation.
+	#Default: true. Disable only for compatibility experiments.
+	suppressVanillaInnateResistanceReduction = true
