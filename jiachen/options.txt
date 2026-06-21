@@ -7,3 +7,4 @@ lang:zh_cn
 skipMultiplayerWarning:true
 syncChunkWrites:true
 soundCategory_music:0.0
+key_keys.xklibmc.open_map:key.keyboard.k
