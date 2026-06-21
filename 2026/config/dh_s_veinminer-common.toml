@@ -11,7 +11,7 @@ veinMinerEnabled = true
 #连锁挖掘时每个额外方块是否消耗额外耐久度 (默认: true) / Whether each extra block consumes additional durability (default: true)
 veinMinerExtraDurability = false
 #连锁挖掘模式: BLACKLIST(黑名单), WHITELIST(白名单), DISABLED(禁用) (默认: DISABLED) / Vein mining mode: BLACKLIST, WHITELIST, DISABLED (default: DISABLED)
-veinMinerMode = ""
+veinMinerMode = "DISABLED"
 #白名单方块列表，多个用逗号分隔 (例如: minecraft:stone,minecraft:iron_ore)，仅在模式为WHITELIST时生效 / Whitelist of blocks, comma-separated (e.g., minecraft:stone,minecraft:iron_ore). Only effective when mode is WHITELIST.
 veinMinerWhitelist = ""
 #黑名单方块列表，多个用逗号分隔 (例如: minecraft:bedrock,minecraft:obsidian)，仅在模式为BLACKLIST时生效 / Blacklist of blocks, comma-separated (e.g., minecraft:bedrock,minecraft:obsidian). Only effective when mode is BLACKLIST.
