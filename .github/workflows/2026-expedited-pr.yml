@@ -34,5 +34,5 @@ jobs:
           shopt -s nocasematch
           if [[ $(gh pr view $PR_URL --json body --jq '.body') == *"$CONSENT_PATTERN"* ]]; then
             echo '::notice::检测到已同意声明，快速合并'
-            gh pr merge $PR_URL --merge
+            gh pr merge $PR_URL --squash
           fi
