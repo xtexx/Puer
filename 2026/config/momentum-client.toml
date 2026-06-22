@@ -1,0 +1,45 @@
+#是否开启摄像头偏移
+enableCameraOffset = true
+
+[key_hints]
+	#移动时最低透明度
+	#范围: 0.0 - 1.0
+	#默认值: 0.4
+	# Default: 0.4
+	# Range: 0.0 ~ 1.0
+	minAlphaWhenMoving = 0.4
+	#最大透明度
+	#范围: 0.0 - 1.0
+	#默认值: 1.0
+	# Default: 1.0
+	# Range: 0.0 ~ 1.0
+	maxAlpha = 1.0
+	#内容变化后高亮持续时间（单位：tick）
+	#默认值: 80 (4秒)
+	# Default: 80
+	# Range: > 0
+	freshDuration = 80
+	#静止多久后淡入（单位：tick）
+	#默认值: 100 (5秒)
+	# Default: 100
+	# Range: > 0
+	idleDelay = 100
+	#视为移动的速度阈值（平方值）
+	#默认值: 0.005
+	# Default: 0.005
+	# Range: 0.0 ~ 1.7976931348623157E308
+	moveThresholdSqr = 0.005
+	#淡入速度（值越小越慢）
+	#范围: 0 - 1.0
+	#默认值: 0.08
+	# Default: 0.01
+	# Range: 0.0 ~ 1.0
+	fadeInSpeed = 0.02
+	#淡出速度（值越小越慢）
+	#范围: 0 - 1.0
+	#默认值: 0.18
+	# Default: 0.18
+	# Range: 0.0 ~ 1.0
+	fadeOutSpeed = 0.18
+	#是否开启按键教程
+	enableKeyHints = false
