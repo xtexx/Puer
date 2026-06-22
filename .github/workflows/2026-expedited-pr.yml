@@ -1,5 +1,6 @@
 name: TeaCon 2026 Pull Request Expedited
 permissions:
+  actions: write
   contents: write
   pull-requests: write
 on:
@@ -31,4 +32,12 @@ jobs:
           if [[ $(gh pr view $PR_URL --json body --jq '.body') == *"$CONSENT_PATTERN"* ]]; then
             echo '::notice::检测到已同意声明，快速合并'
             gh pr merge $PR_URL --merge
+            for attempt in {1..20}; do
+              if gh pr view $PR_URL --json merged --jq '.merged' | grep -qx true; then
+                echo '::notice::PR 已合并，触发 2026-sync.yml'
+                gh workflow run 2026-sync.yml --ref dev
+                break
+              fi
+              sleep 3
+            done
           fi
